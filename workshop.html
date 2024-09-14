@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Fetch & Promises</title>
+  </head>
+  <body>
+    <h1>Open the console</h1>
+    <script>
+      function allUsers() {
+        return fetch(`https://api.github.com/users`)
+         .then((response) => response.json())
+         .then((data) => console.log(data))
+         .catch((error) => console.log(error));
+      }
+
+      function getUser(user) {
+        return getProfile = fetch(`https://api.github.com/users/${user}`)
+           .then((response) => response.json())
+           .catch((error) => console.log(error));
+      }
+
+      function getRepos(resObj) {
+        return fetch(resObj.repos_url).then((response)=> response.json());
+      }
+      
+      // getUser("oliverjam")
+      //   .then(getRepos)
+      //   .then(console.log)
+      //   .catch(console.error);
+
+      //allUsers();
+      Promise.all([getUser("oliverjam"), getUser("takeo"), getUser("caged")])
+         .then(getRepos)
+         .then(console.log)
+         .catch(console.error)
+
+    </script>
+  </body>
+</html>
